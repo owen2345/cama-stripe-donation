@@ -1,0 +1,12 @@
+= Camaleon CMS Plugin to accept donations using Stripe
+* add in your Gemfile
+```
+gem 'cama_stripe_donation', github: 'owen2345/cama-stripe-donation'
+```
+* install by console
+```
+bundle install
+```
+* restart server and activate plugin
+* Go to settings in the plugin and enter stripe settings
+* Use the shortcode generator and put in any content

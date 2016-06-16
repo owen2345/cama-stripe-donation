@@ -1,0 +1,19 @@
+{
+  "title": "Cama Stripe Donation",
+  "descr": "",
+  "key": "cama_stripe_donation", // must be the name of the folder of your plugin, sample: app/views/plugins/<my_plugin> ==> 'my_plugin'
+  "helpers": [
+    "Plugins::CamaStripeDonation::MainHelper"
+  ],
+  "hooks": {
+    "on_active": [
+      "cama_stripe_donation_on_active"
+    ],
+    "on_inactive": [
+      "cama_stripe_donation_on_inactive"
+    ],
+    "front_before_load": ["cama_stripe_before_front_load"],
+    "plugin_options": ["cama_stripe_donation_plugin_options"]
+    //here you can add all your hooks (read documentation)
+  }
+}

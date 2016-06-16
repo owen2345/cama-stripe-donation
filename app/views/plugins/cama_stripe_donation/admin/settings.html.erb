@@ -1,0 +1,87 @@
+<div id="cama_stripe_plugin_settings">
+    <%= form_tag(url_for(action: :save_settings), class: 'panel panel-default validate') do |f| %>
+        <div class="panel-heading">
+            <h4><%= t('.settings') %></h4>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <%= label_tag :secret_key, t('.secret_key', default: 'Secret Key') %> (*)
+                <%= text_field_tag 'option[secret_key]', @plugin.get_option('secret_key'), class: 'form-control required' %>
+            </div>
+            <div class="form-group">
+                <%= label_tag :publishable_key, t('.publishable_key', default: 'Publishable Key') %> (*)
+                <%= text_field_tag 'option[publishable_key]', @plugin.get_option('publishable_key'), class: 'form-control required' %>
+            </div>
+            <div class="form-group">
+                <%= label_tag :thanks_message, t('.thanks_message', default: 'Thanks Message') %> (*)
+                <%= text_field_tag 'option[thanks_message]', @plugin.get_option('thanks_message', 'Thanks for donate %{amount} %{currency}.'), class: 'form-control required translatable' %>
+            </div>
+        </div>
+        <div class="panel-footer text-right">
+            <button type="submit" class="btn btn-primary"><%= t('.submit', default: 'Submit') %></button>
+        </div>
+    <% end %>
+    <%= form_tag '#', class: 'panel panel-default validate panel_generator' do %>
+        <div class="panel-heading">
+            <h4><%= t('.shortcode_generator', default: 'Shortcode Generator') %></h4>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <%= label_tag :title, t('.shortcode.title', default: 'Title') %> (*)
+                <%= text_field_tag 'title', 'Camaleon CMS', class: 'form-control required' %>
+            </div>
+            <div class="form-group">
+                <%= label_tag :currency, t('.shortcode.currency', default: 'Currency') %> (*)
+                <small><%= t('.currencies_supported', default: 'All currencies supported') %>: <a href="https://support.stripe.com/questions/which-currencies-does-stripe-support" target="_blank">https://support.stripe.com/questions/which-currencies-does-stripe-support</a></small><br>
+                <%= text_field_tag 'currency', 'usd', class: 'form-control' %>
+            </div>
+            <div class="form-group">
+                <%= label_tag :description, t('.shortcode.description', default: 'Description') %> (*)
+                <%= text_field_tag 'description', 'Please donate to help working in the project', class: 'form-control required' %>
+            </div>
+            <div class="form-group">
+                <%= label_tag :price, t('.shortcode.price', default: 'Price') %> (*)
+                <%= text_field_tag 'price', '10', class: 'form-control required' %>
+            </div>
+            <div class="form-group">
+                <%= label_tag :button_text, t('.shortcode.button_text', default: 'Button Text') %> (*)
+                <%= text_field_tag 'button_text', 'Donate now!', class: 'form-control required' %>
+            </div>
+            <div class="form-group">
+                <%= label_tag :files, t('.shortcode.file', default: 'File delivered after donation') %>
+                <%= text_field_tag 'file', '', class: '', style: 'position: absolute; width: 0; height: 0; z-index: -10;' %>
+                <%= link_to(t('upload_btn', default: 'Upload file'), '#', class: 'btn btn-xs btn-default upload_file') %>
+            </div>
+            <div class="form-group">
+                <input type="text" name="code" class="code_style" style="width: 100%">
+            </div>
+        </div>
+        <div class="panel-footer text-right">
+            <button type="reset" class="btn btn-default"><%= t('.reset', default: 'Reset') %></button>
+            <button type="submit" class="btn btn-primary"><%= t('.generate_btn', default: 'Generate') %></button>
+        </div>
+    <% end %>
+</div>
+<script>
+    jQuery(function(){
+        var panel = $('#cama_stripe_plugin_settings');
+        panel.find('.upload_file').click(function(){
+            var $input = $(this).prev();
+            $.fn.upload_filemanager({
+                formats: $input.data("formats") ? $input.data("formats") : "",
+                selected: function (file, response) {
+                    $input.val(file.url.split('?file=')[1].replace(/%2/g, '/'));
+                },
+                private: true
+            });
+            return false;
+        });
+        panel.find('.panel_generator').submit(function(){
+            var form = $(this);
+            if(!form.valid()) return false;
+            var code = "[stripe_donation title='"+form.find('[name="title"]').val()+"' description='"+form.find('[name="description"]').val()+"' currency='"+form.find('[name="currency"]').val()+"' price='"+form.find('[name="price"]').val()+"' button_text='"+form.find('[name="button_text"]').val()+"' file='"+form.find('[name="file"]').val()+"']";
+            form.find('.code_style').val(code);
+            return false;
+        });
+    });
+</script>

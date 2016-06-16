@@ -1,0 +1,25 @@
+en:
+  plugins:
+    cama_stripe_donation:
+      admin:
+        link_settings: 'Settings'
+        settings:
+          publishable_key: 'Publishable Key'
+          secret_key: 'Secret Key'
+          submit: 'Submit'
+          shortcode_generator: 'Shortcode Generator'
+          thanks_message: 'Thanks Message'
+          shortcode:
+            title: 'Title'
+            currency: 'Currency'
+            description: 'Description'
+            price: 'Price'
+            button_text: 'Button Text'
+            file: 'File delivered after donation'
+            upload_btn: 'Upload file'
+            generate_btn: 'Generate'
+            currencies_supported: 'All currencies supported'
+
+
+        save_settings:
+          settings_saved: 'Settings Saved'

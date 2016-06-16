@@ -1,0 +1,9 @@
+<%
+    append_asset_libraries({"stripe_donation"=>{js: ['https://checkout.stripe.com/checkout.js', plugin_asset("stripe_donation")] } })
+%>
+<%= form_tag plugins_cama_stripe_donation_donate_path, class: 'plugin_stripe_donation_form', 'data-key' => current_plugin.get_option('publishable_key'), 'data-name' => attributes['title'], 'data-descr' => attributes['description'], 'data-currency' => attributes['currency'], 'data-amount' => (attributes['price'].to_d * 100).to_i do %>
+    <% attributes.each do |k, v| %>
+        <%= hidden_field_tag k, Plugins::CamaStripeDonation::FrontController::ENCODE_PARAMS.include?(k) ? Base64.encode64(v) : v %>
+    <% end %>
+    <button type="button" class="btn btn-info"><%= attributes['button_text'].html_safe %></button>
+<% end %>
