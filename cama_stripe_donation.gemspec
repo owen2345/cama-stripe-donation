@@ -10,8 +10,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Owen Peredo"]
   s.email       = ["owenperedo@gmail.com"]
   s.homepage    = ""
-  s.summary     = ": Summary of CamaStripeDonation."
-  s.description = ": Description of CamaStripeDonation."
+  s.summary     = "Camaleon CMS Plugin to accept donations using Stripe"
+  s.description = s.summary
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
